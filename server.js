@@ -21,5 +21,5 @@ app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
 
 app.listen(process.env.PORT || 5000, () =>
-  console.log("Listening on the port " + port)
+  console.log("Listening on the port " + process.env.PORT)
 );
