@@ -21,7 +21,7 @@ const validateUser = [
 // Routes
 
 // @route     POST api/users
-// @desc      Register user Route
+// @desc      Register a user Route
 // @access    Public
 
 router.post("/register", validateUser, async (req, res) => {
