@@ -9,7 +9,7 @@ var bodyParser = require("body-parser");
 // Connect Database
 connectDB();
 const corsOptions = {
-  origin: "https://infallible-tereshkova-1c2ff5.netlify.app/",
+  origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
