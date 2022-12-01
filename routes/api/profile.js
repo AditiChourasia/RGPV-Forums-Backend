@@ -3,9 +3,42 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/profile");
 const User = require("../../models/user");
+const imgModel = require("../../models/image");
 const request = require("request");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
+var fs = require("fs");
+var path = require("path");
+const upload = require("../../middleware/image");
+var bodyParser = require("body-parser");
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+
+router.post("/uploadImage", async (req, res) => {
+  try {
+    await upload(req, res);
+    var obj = {
+      img: {
+        data: fs.readFileSync(
+          path.join(__dirname + "/uploads/" + req.files.image.name)
+        ),
+        contentType: "image/png",
+      },
+    };
+    imgModel.create(obj, (err, item) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // item.save();
+        res.redirect("/");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send(error);
+  }
+});
 
 // @route     GET api/profile/me
 // @desc      Get current User's profile
